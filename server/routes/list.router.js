@@ -21,11 +21,11 @@ router.post("/", (req, res) => {
   console.log("in .post");
   const newListItem = req.body;
   console.log("in newListItem", newListItem);
-  const queryText = `INSERT INTO "shopping_list"("name", "quantity", "unit", "purchased")
+  const queryText = `INSERT INTO shopping_list (name, quantity, unit, purchased)
   VALUES ($1, $2, $3, $4);`;
 
   pool
-    .query(queryText, [newListItem.task])
+    .query(queryText, [newListItem.name, newListItem.quantity, newListItem.unit, newListItem.purchased])
     .then((result) => {
       console.log("result", result);
       res.sendStatus(201);

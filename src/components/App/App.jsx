@@ -28,12 +28,47 @@ const fetchList = () => {
       });
   };
 
+  const addItem = (evt) => {
+    evt.preventDefault();
+    console.log(`${itemQty} ${itemUnit} of ${itemName}`);
+    axios({
+      method: 'POST',
+      url: '/list',
+      data: {
+        name: itemName,
+        quantity: itemQty,
+        unit: itemUnit,
+        purchased: false,
+      }
+    })
+    .then((response) => {
+      console.log('POST response:', response);
+      setItemName('');
+      setItemQty('');
+      setItemUnit('');
+      fetchList();
+    })
+    .catch((error) => {
+      console.log('POST ERROR:', error);
+    });
+  }
+
 
 
     return (
         <div className="App">
             <Header />
             <main>
+                <br />
+            <form onSubmit={addItem}>
+                <label htmlFor="name-input">Name:</label>
+                <input id="name-input" value={itemName} onChange={e => setItemName(e.target.value)} />
+                <label htmlFor="quantity-input">Quantity:</label>
+                <input id="qty-input" value={itemQty} onChange={e => setItemQty(e.target.value)} />
+                <label htmlFor="unit-input">Units:</label>
+                <input id="unit-input" value={itemUnit} onChange={e => setItemUnit(e.target.value)} />
+                <button type="submit">Done</button>
+            </form>
                 <p>Under Construction...</p>
                 <ul>
                     {itemArray.map(item => (
@@ -50,5 +85,5 @@ const fetchList = () => {
 export default App;
 
 // Unordered list - PLURCHAsed, DELETE by id
-//GET, PUT, DELETE, UPDATE
+//GET, POST, DELETE, UPDATE
 //clear and reset button
