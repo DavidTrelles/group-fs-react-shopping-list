@@ -1,10 +1,14 @@
-function ListItem({item}){
+function ListItem({item, deleteItProp}){
+
+    console.log(deleteItProp);
+
     const purchaseIt = () => {
         console.log('purchaseIt CLICKED');
     }
 
     const deleteIt = () => {
         console.log('deleteIt CLICKED');
+        deleteItProp(item.id);
     }
 
     return(

@@ -4,6 +4,7 @@ import Header from '../Header/Header.jsx'
 import './App.css';
 import axios from 'axios';
 import ShoppingList from '../ShoppingList/ShoppingList';
+import ListItem from '../ListItem/ListItem';
 
 
     function App() {
@@ -78,7 +79,7 @@ const purchaseIt = ()=>{
     });
   }
 
-
+  <ListItem deleteItProp={deleteIt}/>
 
     return (
         <div className="App">
