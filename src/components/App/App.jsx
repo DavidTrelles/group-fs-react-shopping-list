@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react';
 import Header from '../Header/Header.jsx'
 import './App.css';
 import axios from 'axios';
+import ShoppingList from '../ShoppingList/ShoppingList';
 
 
     function App() {
@@ -27,6 +28,30 @@ const fetchList = () => {
         console.log("Cannot get list", error);
       });
   };
+
+  const deleteIt = () => {
+    axios({
+      method: 'DELETE',
+      url: `/list/${id}`,
+    }).then(function(){
+      fetchList();
+    }).catch(function(error){
+      console.log('Delete ERROR:', error);
+    });
+  }
+
+const purchaseIt = ()=>{
+  axios({
+    method: "PUT",
+    url: `/list/${id}`,
+  }).then(function() {
+    fetchList();
+     
+    })
+    .catch(function(error) {
+      console.log('PUT error:', error);
+    });
+}
 
   const addItem = (evt) => {
     evt.preventDefault();
@@ -70,13 +95,7 @@ const fetchList = () => {
                 <button type="submit">Done</button>
             </form>
                 <p>Under Construction...</p>
-                <ul>
-                    {itemArray.map(item => (
-                    <li key={item.id}>
-                        {item.quantity} {item.unit} of {item.name}
-                    </li>
-                ))}
-                </ul>
+                <ShoppingList itemArrayProp={itemArray}/>
             </main>
         </div>
     );
